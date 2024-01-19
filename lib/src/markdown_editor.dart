@@ -3,10 +3,10 @@ library markdown_editor;
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:markdown_editor_ot/src/action.dart';
-import 'package:markdown_editor_ot/src/editor.dart';
-import 'package:markdown_editor_ot/src/markdown_core/markdown_core_builder.dart';
-import 'package:markdown_editor_ot/src/preview.dart';
+import 'package:markdown_editor/src/action.dart';
+import 'package:markdown_editor/src/editor.dart';
+import 'package:markdown_editor/src/markdown_core/markdown_core_builder.dart';
+import 'package:markdown_editor/src/preview.dart';
 
 class MarkdownText {
   const MarkdownText(this.title, this.text);

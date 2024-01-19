@@ -1,7 +1,7 @@
-name: markdown_editor_ot
+name: markdown_editor
 description: Simple and easy to implement your markdown editor, it uses its own parser.
 version: 1.0.5
-homepage: https://github.com/xia-weiyang/markdown_editor_ot
+homepage: https://github.com/Opestein/markdown_editor
 
 environment:
   sdk: '>=2.12.0 <4.0.0'

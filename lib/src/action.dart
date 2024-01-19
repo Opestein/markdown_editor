@@ -74,8 +74,6 @@ class ActionImageState extends State<ActionImage> {
   }
 }
 
-const _fontPackage = 'markdown_editor_ot';
-
 const _defaultImageAttributes = <ImageAttributes>[
   ImageAttributes(
     type: ActionType.undo,
