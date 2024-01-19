@@ -126,7 +126,7 @@ class MdEditorState extends State<MdEditor> with AutomaticKeepAliveClientMixin {
     _editPerform.change(_textEditingController.text);
   }
 
-  /// 获取光标位置
+  /// Get cursor position
   int _getCursorPosition() {
     if (_textEditingController.text.isEmpty) return 0;
     if (_textEditingController.selection.base.offset < 0)
@@ -167,7 +167,7 @@ class MdEditorState extends State<MdEditor> with AutomaticKeepAliveClientMixin {
                           color: const Color(0xFF333333),
                         ),
                     decoration: InputDecoration(
-                      hintText: widget.hintTitle ?? '标题',
+                      hintText: widget.hintTitle ?? 'Title',
                       border: InputBorder.none,
                       hintStyle: widget.hintTitleStyle,
                     ),
@@ -198,7 +198,7 @@ class MdEditorState extends State<MdEditor> with AutomaticKeepAliveClientMixin {
                       if (widget.textChange != null) widget.textChange!();
                     },
                     decoration: InputDecoration(
-                      hintText: widget.hintText ?? '请输入内容',
+                      hintText: widget.hintText ?? 'Please enter content',
                       border: InputBorder.none,
                       hintStyle: widget.hintTextStyle,
                     ),

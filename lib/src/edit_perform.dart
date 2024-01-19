@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-/// 撤销与前进
+/// Undo and move forward
 class EditPerform {
   EditPerform(
     this._textEditingController, {
     this.initText = '',
   });
 
-  /// 最大的存储长度
+  /// Maximum storage length
   final _maxLength = 50;
 
-  /// 初始文本
+  /// Initial Text
   final String initText;
 
   var _undoList = <_EditData>[];
@@ -30,7 +30,7 @@ class EditPerform {
     }
   }
 
-  /// 撤销
+  /// Cancel
   void undo() {
 //    print(_undoList);
     if (_undoList.isNotEmpty) {
@@ -53,7 +53,7 @@ class EditPerform {
     }
   }
 
-  /// 恢复
+  /// Recover
   void redo() {
 //    print(_redoList);
     if (_redoList.isNotEmpty) {

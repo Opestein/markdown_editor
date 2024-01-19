@@ -71,66 +71,66 @@ class _MyHomePageState extends State<MyHomePage> {
         // in the middle of the parent.
         child: MarkdownEditor(
           initText: """
-Markdown是一种可以使用普通文本编辑器编写的标记语言，通过简单的标记语法，它可以使普通文本内容具有一定的格式。更多介绍请参考[百度百科](https://baike.baidu.com/item/markdown/3245829?fr=aladdin)。
+Markdown is a markup language that can be written using an ordinary text editor. Through simple markup syntax, it can make ordinary text content have a certain format. For more introduction, please refer to [Baidu Encyclopedia](https://baike.baidu.com/item/markdown/3245829?fr=aladdin).
 
-## 1.标题
-行首加井号表示不同级别的标题(H1-H6),例如：# H1,## H2,### H3,#### H4(注意：#号后边应有英文空格)。
-# 一级标题
-## 二级标题
-### 三级标题
-#### 四级标题
-##### 五级标题
-###### 六级标题
+## 1.Title
+Add a pound sign at the beginning of the line to indicate different levels of titles (H1-H6), for example: # H1, ## H2, ### H3, #### H4 (note: there should be an English space after the # sign).
+#Level 1 title
+## Second level title
+### Third level title
+#### Level 4 heading
+##### Level 5 headings
+###### Sixth level title
 
-## 2.文字效果
+## 2. Text effect
 
-使用 * 将文字包围起来表示*斜体*，如：\\*斜体*。
-使用 ** 将文字包围起来表示**粗体**，如：\\*\\*粗体**。
-使用 ~~ 将文字包围起来表示~~删除线~~，如：\\~\\~删除线~~。
+Use * to surround text to indicate *italic*, such as: \\*italic*.
+Use ** to surround text to represent **bold**, such as: \\*\\*bold**.
+Use ~~ to surround text to represent ~~strikethrough~~, such as: \\~\\~strikethrough~~.
 
-如果你想使一段话中部分文字高亮显示，来起到突出强调的作用，那么可以把它用\\`包围起来，`注意`这不是单引号，而是``Tab``上方，``数字1``左边的按键（注意使用``英文``输入法）。
+If you want to highlight part of the text in a paragraph to highlight it, you can surround it with \\`, `note` that this is not a single quotation mark, but above ``Tab``, ` The key to the left of `number 1` (note that you use the `English` input method).
 
-##  3. 外链接
+## 3. External links
 
-使用 \\[描述](链接地址) 为文字增加外链接。
-这是去往 [旧时光网站](https://www.jiushig.com) 的链接。
+Use \\[Description](link address) to add external links to text.
+This is a link to [Old Time Website](https://www.jiushig.com).
 
-## 4. 图片
+## 4. Pictures
 
-使用 \\!\\[描述](图片链接地址) 插入图像，仅仅比链接前面多了一个!号。插入图片示例： 
+Use \\!\\[Description] (image link address) to insert an image, just one more ! sign than in front of the link. Example of inserting a picture:
 
-![旧时光](https://oss.jiushig.com/oldtime/oldtime_wallpaper.png)
+![Old time](https://oss.jiushig.com/oldtime/oldtime_wallpaper.png)
 
-## 5. 列表
+## 5. List
 
-使用 *，+，- 表示无序列表。
+Use *, +, - to represent an unordered list.
 
-- 无序列表项 一
-- 无序列表项 二
-- 无序列表项 三
+- Unordered list items 1
+- Unordered list items 2
+- Unordered list items three
 
-行首加四个空格表示二级列表，以此类推。
+Adding four spaces at the beginning of the line represents a secondary list, and so on.
 
-+ 一级列表
-    + 二级列表
-        + 三级列表
++ first level list
+    + Secondary list
+        + Level 3 list
 
-## 6. 引用
+## 6. Quote
 
-行首使用 > 表示文字引用。
+Use > at the beginning of a line to indicate a literal reference.
 
-单个引用：
+Single quote:
 
-> 野火烧不尽，春风吹又生。野火烧不尽，春风吹又生。
+> Wildfires never burn out, but spring breezes blow them again. Wild fire, in spring.
 
-当然，你也可以 使用多个>>
+Of course, you can also use multiple >>
 
->我用了一个
->> 我用了两个
+>I used a
+>> I used two
 
-## 7. 片段
+## 7. Fragments
 
-可以用 ``` 包裹一段文字，用来显示某一片段，例如显示如下代码片段：
+You can use ``` to wrap a piece of text to display a certain fragment, for example, to display the following code fragment:
 
 ```
 \$(document).ready(function () {
@@ -138,7 +138,7 @@ Markdown是一种可以使用普通文本编辑器编写的标记语言，通过
 });
 ```
 
-## 8. 表格
+## 8. Table
 
           """,
           padding: const EdgeInsets.all(8),

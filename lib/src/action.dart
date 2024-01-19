@@ -41,8 +41,8 @@ class ActionImageState extends State<ActionImage> {
           (str) {
             debugPrint('Image select $str');
             if (str.isNotEmpty) {
-              // 延迟执行它，等待TextFiled获取焦点
-              // 否则将无法成功插入文本
+              // Delay its execution and wait for TextFiled to get focus
+              // Otherwise, the text will not be successfully inserted.
               Timer(const Duration(milliseconds: 200), () {
                 widget.tap(widget.type, '![]($str)', 0, cursorPosition);
               });
@@ -79,154 +79,118 @@ const _fontPackage = 'markdown_editor_ot';
 const _defaultImageAttributes = <ImageAttributes>[
   ImageAttributes(
     type: ActionType.undo,
-    tip: '撤销',
-    iconData: const IconData(
-      0xe907,
-      fontFamily: 'MyIconFont',
-      fontPackage: _fontPackage,
-    ),
+    tip: 'Cancel',
+    iconData: Icons.undo,
   ),
   ImageAttributes(
     type: ActionType.redo,
-    tip: '恢复',
-    iconData: const IconData(
-      0xe874,
-      fontFamily: 'MyIconFont',
-      fontPackage: _fontPackage,
-    ),
+    tip: 'Recover',
+    iconData: Icons.redo,
   ),
   ImageAttributes(
     type: ActionType.image,
     text: '![]()',
-    tip: '图片',
+    tip: 'Picture',
     positionReverse: 3,
-    iconData: const IconData(
-      0xe7ac,
-      fontFamily: 'MyIconFont',
-      fontPackage: _fontPackage,
-    ),
+    iconData: Icons.image,
   ),
   ImageAttributes(
     type: ActionType.link,
     text: '[]()',
-    tip: '链接',
+    tip: 'Link',
     positionReverse: 3,
-    iconData: const IconData(
-      0xe7d8,
-      fontFamily: 'MyIconFont',
-      fontPackage: _fontPackage,
-    ),
+    iconData: Icons.link,
   ),
   ImageAttributes(
     type: ActionType.fontBold,
     text: '****',
-    tip: '加粗',
+    tip: 'Bold',
     positionReverse: 2,
-    iconData: const IconData(
-      0xe757,
-      fontFamily: 'MyIconFont',
-      fontPackage: _fontPackage,
-    ),
+    iconData: Icons.font_download,
   ),
   ImageAttributes(
     type: ActionType.fontItalic,
     text: '**',
-    tip: '斜体',
+    tip: 'Italics',
     positionReverse: 1,
-    iconData: const IconData(
-      0xe762,
-      fontFamily: 'MyIconFont',
-      fontPackage: _fontPackage,
-    ),
+    iconData:Icons.format_italic,
   ),
   ImageAttributes(
     type: ActionType.fontStrikethrough,
     text: '~~~~',
-    tip: '删除线',
+    tip: 'Strikethrough',
     positionReverse: 2,
-    iconData: const IconData(
-      0xe76a,
-      fontFamily: 'MyIconFont',
-      fontPackage: _fontPackage,
-    ),
+    iconData: Icons.format_strikethrough,
   ),
   ImageAttributes(
     type: ActionType.textQuote,
     text: '\n>',
-    tip: '文字引用',
+    tip: 'Character Quote',
     positionReverse: 0,
-    iconData: const IconData(
-      0xe768,
-      fontFamily: 'MyIconFont',
-      fontPackage: _fontPackage,
-    ),
+    iconData:Icons.format_quote,
   ),
   ImageAttributes(
     type: ActionType.list,
     text: '\n- ',
-    tip: '无序列表',
+    tip: 'Unordered list',
     positionReverse: 0,
-    iconData: const IconData(
-      0xe764,
-      fontFamily: 'MyIconFont',
-      fontPackage: _fontPackage,
-    ),
+    iconData: Icons.format_list_bulleted,
   ),
-  ImageAttributes(
-    type: ActionType.h4,
-    text: '\n#### ',
-    tip: '四级标题',
-    positionReverse: 0,
-    iconData: const IconData(
-      0xe75e,
-      fontFamily: 'MyIconFont',
-      fontPackage: _fontPackage,
-    ),
-  ),
-  ImageAttributes(
-    type: ActionType.h5,
-    text: '\n##### ',
-    tip: '五级标题',
-    positionReverse: 0,
-    iconData: const IconData(
-      0xe75f,
-      fontFamily: 'MyIconFont',
-      fontPackage: _fontPackage,
-    ),
-  ),
-  ImageAttributes(
-    type: ActionType.h1,
-    text: '\n# ',
-    tip: '一级标题',
-    positionReverse: 0,
-    iconData: const IconData(
-      0xe75b,
-      fontFamily: 'MyIconFont',
-      fontPackage: _fontPackage,
-    ),
-  ),
-  ImageAttributes(
-    type: ActionType.h2,
-    text: '\n## ',
-    tip: '二级标题',
-    positionReverse: 0,
-    iconData: const IconData(
-      0xe75c,
-      fontFamily: 'MyIconFont',
-      fontPackage: _fontPackage,
-    ),
-  ),
-  ImageAttributes(
-    type: ActionType.h3,
-    text: '\n### ',
-    tip: '三级标题',
-    positionReverse: 0,
-    iconData: const IconData(
-      0xe75d,
-      fontFamily: 'MyIconFont',
-      fontPackage: _fontPackage,
-    ),
-  ),
+  // ImageAttributes(
+  //   type: ActionType.h4,
+  //   text: '\n#### ',
+  //   tip: 'Level 4 heading',
+  //   positionReverse: 0,
+  //   iconData: const IconData(
+  //     0xe75e,
+  //     fontFamily: 'MyIconFont',
+  //     fontPackage: _fontPackage,
+  //   ),
+  // ),
+  // ImageAttributes(
+  //   type: ActionType.h5,
+  //   text: '\n##### ',
+  //   tip: 'Level 5 heading',
+  //   positionReverse: 0,
+  //   iconData: const IconData(
+  //     0xe75f,
+  //     fontFamily: 'MyIconFont',
+  //     fontPackage: _fontPackage,
+  //   ),
+  // ),
+  // ImageAttributes(
+  //   type: ActionType.h1,
+  //   text: '\n# ',
+  //   tip: 'First Level Title',
+  //   positionReverse: 0,
+  //   iconData: const IconData(
+  //     0xe75b,
+  //     fontFamily: 'MyIconFont',
+  //     fontPackage: _fontPackage,
+  //   ),
+  // ),
+  // ImageAttributes(
+  //   type: ActionType.h2,
+  //   text: '\n## ',
+  //   tip: 'Second level title',
+  //   positionReverse: 0,
+  //   iconData: const IconData(
+  //     0xe75c,
+  //     fontFamily: 'MyIconFont',
+  //     fontPackage: _fontPackage,
+  //   ),
+  // ),
+  // ImageAttributes(
+  //   type: ActionType.h3,
+  //   text: '\n### ',
+  //   tip: 'Level 3 headings',
+  //   positionReverse: 0,
+  //   iconData: const IconData(
+  //     0xe75d,
+  //     fontFamily: 'MyIconFont',
+  //     fontPackage: _fontPackage,
+  //   ),
+  // ),
 ];
 
 enum ActionType {

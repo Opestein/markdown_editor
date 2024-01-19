@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:markdown_core/builder.dart';
-import 'package:markdown_core/markdown.dart';
+
+import 'markdown_core/markdown_core.dart';
+import 'markdown_core/markdown_core_builder.dart';
+
 
 class MdPreview extends StatefulWidget {
   MdPreview({
