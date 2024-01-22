@@ -8,14 +8,12 @@ class ActionImage extends StatefulWidget {
     Key? key,
     required this.type,
     required this.tap,
-    this.imageSelect,
     required this.color,
     this.getCursorPosition,
-  })  : super(key: key);
+  }) : super(key: key);
 
   final ActionType type;
   final TapFinishCallback tap;
-  final ImageSelectCallback? imageSelect;
   final GetCursorPosition? getCursorPosition;
 
   final Color? color;
@@ -34,30 +32,35 @@ class ActionImageState extends State<ActionImage> {
   void _disposeAction() {
     var firstWhere =
         _defaultImageAttributes.firstWhere((img) => img.type == widget.type);
-    if (firstWhere.type == ActionType.image && widget.getCursorPosition != null) {
-      var cursorPosition = widget.getCursorPosition!();
-      if (widget.imageSelect != null) {
-        widget.imageSelect!().then(
-          (str) {
-            debugPrint('Image select $str');
-            if (str.isNotEmpty) {
-              // Delay its execution and wait for TextFiled to get focus
-              // Otherwise, the text will not be successfully inserted.
-              Timer(const Duration(milliseconds: 200), () {
-                widget.tap(widget.type, '![]($str)', 0, cursorPosition);
-              });
-            }
-          },
-          onError: print,
-        );
-        return;
-      }
-    }
-    widget.tap(widget.type, firstWhere.text ?? '', firstWhere.positionReverse ?? 0);
+    // if (firstWhere.type == ActionType.image &&
+    //     widget.getCursorPosition != null) {
+    //   var cursorPosition = widget.getCursorPosition!();
+    //   if (widget.imageSelect != null) {
+    //     widget.imageSelect!().then(
+    //       (str) {
+    //         debugPrint('Image select $str');
+    //         if (str.isNotEmpty) {
+    //           // Delay its execution and wait for TextFiled to get focus
+    //           // Otherwise, the text will not be successfully inserted.
+    //           Timer(const Duration(milliseconds: 200), () {
+    //             widget.tap(widget.type, '![desc]','(https://)', 0, cursorPosition);
+    //           });
+    //         }
+    //       },
+    //       onError: print,
+    //     );
+    //     return;
+    //   }
+    // }
+    widget.tap(widget.type, firstWhere.prefix ?? '', firstWhere.suffix ?? '',
+        firstWhere.positionReverse ?? 0);
   }
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    final bool isDark = theme.brightness == Brightness.dark;
+
     return Tooltip(
       preferBelow: false,
       message: _defaultImageAttributes
@@ -66,7 +69,7 @@ class ActionImageState extends State<ActionImage> {
       child: IconButton(
         icon: Icon(
           _getImageIconCode(),
-          color: widget.color,
+          color: widget.color ?? theme.iconTheme.color,
         ),
         onPressed: _disposeAction,
       ),
@@ -76,6 +79,67 @@ class ActionImageState extends State<ActionImage> {
 
 const _defaultImageAttributes = <ImageAttributes>[
   ImageAttributes(
+    type: ActionType.image,
+    prefix: '![placeholder]',
+    suffix: '(placeholder)',
+    tip: 'Picture',
+    positionReverse: 3,
+    iconData: Icons.image,
+  ),
+  ImageAttributes(
+    type: ActionType.link,
+    prefix: '[placeholder]',
+    suffix: '(placeholder)',
+    tip: 'Link',
+    positionReverse: 3,
+    iconData: Icons.link,
+  ),
+  ImageAttributes(
+    type: ActionType.fontBold,
+    prefix: '**',
+    suffix: '**',
+    tip: 'Bold',
+    positionReverse: 2,
+    iconData: Icons.font_download,
+  ),
+  ImageAttributes(
+    type: ActionType.fontItalic,
+    prefix: '*',
+    suffix: '*',
+    tip: 'Italics',
+    positionReverse: 1,
+    iconData: Icons.format_italic,
+  ),
+  ImageAttributes(
+    type: ActionType.fontStrikethrough,
+    prefix: '~~',
+    suffix: '~~',
+    tip: 'Strikethrough',
+    positionReverse: 2,
+    iconData: Icons.format_strikethrough,
+  ),
+  ImageAttributes(
+    type: ActionType.textQuote,
+    prefix: '\n> ',
+    tip: 'Character Quote',
+    positionReverse: 0,
+    iconData: Icons.format_quote,
+  ),
+  ImageAttributes(
+    type: ActionType.list,
+    prefix: '\n- ',
+    tip: 'Unordered list',
+    positionReverse: 0,
+    iconData: Icons.format_list_bulleted,
+  ),
+  ImageAttributes(
+    type: ActionType.preview,
+    prefix: '\n- ',
+    tip: 'Preview Content',
+    positionReverse: 0,
+    iconData: Icons.preview,
+  ),
+  ImageAttributes(
     type: ActionType.undo,
     tip: 'Cancel',
     iconData: Icons.undo,
@@ -84,55 +148,6 @@ const _defaultImageAttributes = <ImageAttributes>[
     type: ActionType.redo,
     tip: 'Recover',
     iconData: Icons.redo,
-  ),
-  ImageAttributes(
-    type: ActionType.image,
-    text: '![]()',
-    tip: 'Picture',
-    positionReverse: 3,
-    iconData: Icons.image,
-  ),
-  ImageAttributes(
-    type: ActionType.link,
-    text: '[]()',
-    tip: 'Link',
-    positionReverse: 3,
-    iconData: Icons.link,
-  ),
-  ImageAttributes(
-    type: ActionType.fontBold,
-    text: '****',
-    tip: 'Bold',
-    positionReverse: 2,
-    iconData: Icons.font_download,
-  ),
-  ImageAttributes(
-    type: ActionType.fontItalic,
-    text: '**',
-    tip: 'Italics',
-    positionReverse: 1,
-    iconData:Icons.format_italic,
-  ),
-  ImageAttributes(
-    type: ActionType.fontStrikethrough,
-    text: '~~~~',
-    tip: 'Strikethrough',
-    positionReverse: 2,
-    iconData: Icons.format_strikethrough,
-  ),
-  ImageAttributes(
-    type: ActionType.textQuote,
-    text: '\n>',
-    tip: 'Character Quote',
-    positionReverse: 0,
-    iconData:Icons.format_quote,
-  ),
-  ImageAttributes(
-    type: ActionType.list,
-    text: '\n- ',
-    tip: 'Unordered list',
-    positionReverse: 0,
-    iconData: Icons.format_list_bulleted,
   ),
   // ImageAttributes(
   //   type: ActionType.h4,
@@ -192,8 +207,6 @@ const _defaultImageAttributes = <ImageAttributes>[
 ];
 
 enum ActionType {
-  undo,
-  redo,
   image,
   link,
   fontBold,
@@ -202,17 +215,21 @@ enum ActionType {
   fontDeleteLine,
   textQuote,
   list,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
+  preview,
+  undo,
+  redo,
+  // h1,
+  // h2,
+  // h3,
+  // h4,
+  // h5,
 }
 
 class ImageAttributes {
   const ImageAttributes({
     this.tip = '',
-    this.text,
+    this.prefix,
+    this.suffix,
     this.positionReverse,
     required this.type,
     required this.iconData,
@@ -221,7 +238,8 @@ class ImageAttributes {
   final ActionType type;
   final IconData iconData;
   final String tip;
-  final String? text;
+  final String? prefix;
+  final String? suffix;
   final int? positionReverse;
 }
 
@@ -230,15 +248,8 @@ class ImageAttributes {
 /// [position] Cursor position that reverse order.
 /// [cursorPosition] Will start insert text at this position.
 typedef void TapFinishCallback(
-  ActionType type,
-  String text,
-  int positionReverse, [
-  int? cursorPosition,
-]);
-
-/// Call this method after clicking the ImageAction.
-/// return your select image path.
-typedef Future<String> ImageSelectCallback();
+    ActionType type, String prefix, String suffix, int positionReverse,
+    [int? cursorPosition]);
 
 /// Get the current cursor position.
 typedef int GetCursorPosition();

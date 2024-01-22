@@ -66,12 +66,16 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: MarkdownEditor(
-          initText: """
-Markdown is a markup language that can be written using an ordinary text editor. Through simple markup syntax, it can make ordinary text content have a certain format. For more introduction, please refer to [Baidu Encyclopedia](https://baike.baidu.com/item/markdown/3245829?fr=aladdin).
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: 300),
+              // Center is a layout widget. It takes a single child and positions it
+              // in the middle of the parent.
+              child: MarkdownEditor(isEditorExpanded: true,
+                initText: """
+Markdown is a markup language that can be written using an ordinary text editor. Through simple markup syntax, it can make ordinary text content have a certain format. For more introduction, please refer to [Baidu Encyclopedia](https://baike.baidu.com/item/markdown/3245).
 
 ## 1.Title
 Add a pound sign at the beginning of the line to indicate different levels of titles (H1-H6), for example: # H1, ## H2, ### H3, #### H4 (note: there should be an English space after the # sign).
@@ -113,7 +117,7 @@ Adding four spaces at the beginning of the line represents a secondary list, and
 
 + first level list
     + Secondary list
-        + Level 3 list
+              + Level 3 list
 
 ## 6. Quote
 
@@ -140,26 +144,31 @@ You can use ``` to wrap a piece of text to display a certain fragment, for examp
 
 ## 8. Table
 
-          """,
-          padding: const EdgeInsets.all(8),
-          textStyle: const TextStyle(
-            fontSize: 18,
-            height: 1.8,
-            color: Colors.black,
-          ),
-          onTapLink: (link) => _launchURL(link),
-          imageWidget: (imageUrl) {
-            debugPrint('imageUrl $imageUrl');
-            return CachedNetworkImage(
-              imageUrl: imageUrl,
-              placeholder: (context, url) => const SizedBox(
-                width: double.infinity,
-                height: 300,
-                child: Center(child: CircularProgressIndicator()),
+                """,
+isPreviewExpanded: true,
+                editorPadding: const EdgeInsets.all(8),
+                textStyle: const TextStyle(
+                  fontSize: 18,
+                  height: 1.8,
+                  color: Colors.black,
+                ),
+                onTapLink: (link) => _launchURL(link),
+                previewImageWidget: (imageUrl) {
+                  debugPrint('imageUrl $imageUrl');
+                  return CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    placeholder: (context, url) => const SizedBox(
+                      width: double.infinity,
+                      height: 300,
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  );
+                },
               ),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            );
-          },
+            ),
+          ],
         ),
       ),
     );
