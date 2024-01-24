@@ -64,7 +64,7 @@ class MarkdownBuilder implements md.NodeVisitor {
     var last = _elementList.last;
     last.textSpans ??= [];
 
-    // 替换特定字符串
+    // Replace specific string
     var content = text.text.replaceAll('&gt;', '>');
     content = content.replaceAll('&lt;', '<');
 
@@ -101,7 +101,7 @@ class MarkdownBuilder implements md.NodeVisitor {
     if (kTextTags.indexOf(element.tag) != -1) {
       if (_elementList.isNotEmpty &&
           kTextParentTags.indexOf(_elementList.last.tag) != -1) {
-        // 内联标签处理
+        // Inline tag handling
         _elementList.last.textSpans ??= [];
         _elementList.last.textSpans?.addAll(last.textSpans ?? []);
       } else {

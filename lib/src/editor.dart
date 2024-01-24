@@ -309,7 +309,15 @@ class MdEditorState extends State<MdEditor> with AutomaticKeepAliveClientMixin {
                     expands: widget.isExpanded,
                     maxLines: widget.isExpanded ? null : widget.maxLines,
                     minLines: widget.isExpanded ? null : widget.minLines,
-
+                    // contentInsertionConfiguration:
+                    //     ContentInsertionConfiguration(
+                    //   onContentInserted: (_) {
+                    //     /*your cb here*/
+                    //   },
+                    //   allowedMimeTypes: [
+                    //     "image/png", /*...*/
+                    //   ],
+                    // ),
                     cursorColor: widget.cursorColor,
                     cursorWidth: 1.5,
                     controller: textFieldModel.textEditingController,
