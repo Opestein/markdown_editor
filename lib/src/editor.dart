@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:markdown_editor/src/action.dart';
-import 'package:markdown_editor/src/customize_physics.dart';
 import 'package:markdown_editor/src/edit_perform.dart';
 import 'package:markdown_editor/src/interceptor_model.dart';
 import 'package:markdown_editor/src/markdown_editor.dart';
@@ -11,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 typedef Future<MediaInterceptorModel?> ImageSelectCallback();
 
-enum MdEditorToolBarPosition { top, bottom }
+enum MdEditorToolBarPosition { top, bottom, none }
 
 class MdEditor extends StatefulWidget {
   MdEditor(

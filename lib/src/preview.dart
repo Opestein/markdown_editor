@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_editor/src/action.dart';
+import 'package:markdown_editor/src/editor.dart';
 import 'package:markdown_editor/src/markdown_editor.dart';
 
 import 'markdown_core/markdown_core.dart';
@@ -17,7 +18,8 @@ class MdPreview extends StatefulWidget {
       this.textStyle,
       this.actionIconColor,
       this.onPreviewClicked,
-      this.previewWidget})
+      this.previewWidget,
+      this.previewToolBarPosition = MdEditorToolBarPosition.bottom})
       : super(key: key);
 
   final TextFieldModel textFieldModel;
@@ -35,6 +37,7 @@ class MdPreview extends StatefulWidget {
   /// Call this method when it tap link of markdown.
   /// If [onTapLink] is null,it will open the link with your default browser.
   final TapLinkCallback? onTapLink;
+  final MdEditorToolBarPosition previewToolBarPosition;
 
   final Widget Function(String content)? previewWidget;
 
@@ -52,6 +55,8 @@ class MdPreviewState extends State<MdPreview>
 
     return Column(
       children: [
+        if (widget.previewToolBarPosition == MdEditorToolBarPosition.top)
+          toolbar(),
         if (widget.previewWidget != null)
           widget.previewWidget!(
               widget.textFieldModel.textEditingController.text ?? '')
@@ -85,36 +90,8 @@ class MdPreviewState extends State<MdPreview>
               ),
             ),
           ),
-        Container(
-          height: 40.0,
-          width: MediaQuery.of(context).size.width,
-          child: Ink(
-              decoration: BoxDecoration(
-                color: theme.scaffoldBackgroundColor,
-                boxShadow: [
-                  BoxShadow(color: theme.scaffoldBackgroundColor),
-                ],
-              ),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                padding: widget.toolbarPadding,
-                child: Row(
-                  children: [
-                    ActionImage(
-                        type: ActionType.preview,
-                        color: widget.actionIconColor,
-                        tap: (ActionType type, String prefix, String suffix,
-                            int positionReverse,
-                            [int? cursorPosition]) {
-                          //   Open preview page
-                          if (widget.onPreviewClicked != null) {
-                            widget.onPreviewClicked!();
-                          }
-                        })
-                  ],
-                ),
-              )),
-        ),
+        if (widget.previewToolBarPosition == MdEditorToolBarPosition.bottom)
+          toolbar()
       ],
     );
   }
@@ -125,6 +102,42 @@ class MdPreviewState extends State<MdPreview>
     }
 
     return child;
+  }
+
+  Widget toolbar() {
+    ThemeData theme = Theme.of(context);
+    final bool isDark = theme.brightness == Brightness.dark;
+
+    return Container(
+      height: 40.0,
+      width: MediaQuery.of(context).size.width,
+      child: Ink(
+          decoration: BoxDecoration(
+            color: theme.scaffoldBackgroundColor,
+            boxShadow: [
+              BoxShadow(color: theme.scaffoldBackgroundColor),
+            ],
+          ),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            padding: widget.toolbarPadding,
+            child: Row(
+              children: [
+                ActionImage(
+                    type: ActionType.preview,
+                    color: widget.actionIconColor,
+                    tap: (ActionType type, String prefix, String suffix,
+                        int positionReverse,
+                        [int? cursorPosition]) {
+                      //   Open preview page
+                      if (widget.onPreviewClicked != null) {
+                        widget.onPreviewClicked!();
+                      }
+                    })
+              ],
+            ),
+          )),
+    );
   }
 
   @override

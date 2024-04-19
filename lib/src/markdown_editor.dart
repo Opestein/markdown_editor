@@ -42,7 +42,8 @@ class MarkdownEditor extends StatefulWidget {
       this.maxLines = 1,
       this.minLines,
       this.onViewChange,
-      this.toolBarPosition = MdEditorToolBarPosition.bottom})
+      this.editorToolBarPosition = MdEditorToolBarPosition.bottom,
+      this.previewToolBarPosition = MdEditorToolBarPosition.bottom})
       : super(key: key);
 
   final bool isEditorExpanded, isPreviewExpanded;
@@ -90,7 +91,8 @@ class MarkdownEditor extends StatefulWidget {
   final Widget Function(String content)? previewWidget;
   final Function(PageType pageType)? onViewChange;
 
-  final MdEditorToolBarPosition toolBarPosition;
+  final MdEditorToolBarPosition editorToolBarPosition;
+  final MdEditorToolBarPosition previewToolBarPosition;
 
   @override
   State<StatefulWidget> createState() => MarkdownEditorWidgetState();
@@ -172,15 +174,15 @@ class MarkdownEditorWidgetState extends State<MarkdownEditor>
             child: Container(
               color: Colors.transparent,
               child: MdPreview(
-                textFieldModel: textFieldModel,
-                toolbarPadding: widget.previewToolbarPadding,
-                previewPadding: widget.previewPadding,
-                isPreviewExpanded: widget.isPreviewExpanded,
-                previewImageWidget: widget.previewImageWidget,
-                actionIconColor: widget.actionIconColor,
-                previewWidget: widget.previewWidget,
-                onPreviewClicked: switchView,
-              ),
+                  textFieldModel: textFieldModel,
+                  toolbarPadding: widget.previewToolbarPadding,
+                  previewPadding: widget.previewPadding,
+                  isPreviewExpanded: widget.isPreviewExpanded,
+                  previewImageWidget: widget.previewImageWidget,
+                  actionIconColor: widget.actionIconColor,
+                  previewWidget: widget.previewWidget,
+                  onPreviewClicked: switchView,
+                  previewToolBarPosition: widget.previewToolBarPosition),
             ),
           )
         : MdEditor(
@@ -205,7 +207,7 @@ class MarkdownEditorWidgetState extends State<MarkdownEditor>
             onPreviewClicked: switchView,
             switchViewAndRequestFocus: switchViewAndRequestFocus,
             dividerColor: widget.dividerColor,
-            toolBarPosition: widget.toolBarPosition,
+            toolBarPosition: widget.editorToolBarPosition,
           );
   }
 }

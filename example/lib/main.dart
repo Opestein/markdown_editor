@@ -73,7 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
               constraints: BoxConstraints(maxHeight: 300),
               // Center is a layout widget. It takes a single child and positions it
               // in the middle of the parent.
-              child: MarkdownEditor(isEditorExpanded: true,
+              child: MarkdownEditor(
+                isEditorExpanded: true,
                 initText: """
 Markdown is a markup language that can be written using an ordinary text editor. Through simple markup syntax, it can make ordinary text content have a certain format. For more introduction, please refer to [Baidu Encyclopedia](https://baike.baidu.com/item/markdown/3245).
 
@@ -145,7 +146,7 @@ You can use ``` to wrap a piece of text to display a certain fragment, for examp
 ## 8. Table
 
                 """,
-isPreviewExpanded: true,
+                isPreviewExpanded: true,
                 editorPadding: const EdgeInsets.all(8),
                 textStyle: const TextStyle(
                   fontSize: 18,
