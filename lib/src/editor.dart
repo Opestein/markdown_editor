@@ -11,6 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 typedef Future<MediaInterceptorModel?> ImageSelectCallback();
 
+enum MdEditorToolBarPosition { top, bottom }
+
 class MdEditor extends StatefulWidget {
   MdEditor(
       {Key? key,
@@ -34,7 +36,8 @@ class MdEditor extends StatefulWidget {
       this.isExpanded = false,
       this.maxLines = 1,
       this.minLines,
-      this.dividerColor})
+      this.dividerColor,
+      this.toolBarPosition = MdEditorToolBarPosition.bottom})
       : super(key: key);
 
   final FocusNode? textFocusNode;
@@ -48,6 +51,7 @@ class MdEditor extends StatefulWidget {
   final EdgeInsetsGeometry? editorContentPadding;
   final String? hintText;
   final bool showToolBar;
+  final MdEditorToolBarPosition toolBarPosition;
 
   /// see [ImageSelectCallback]
   final ImageSelectCallback? imageSelect;
@@ -296,6 +300,9 @@ class MdEditorState extends State<MdEditor> with AutomaticKeepAliveClientMixin {
 
     return Column(
       children: [
+        if (widget.showToolBar &&
+            widget.toolBarPosition == MdEditorToolBarPosition.top)
+          _toolbar(),
         _isExpandedWidget(
           isExpanded: widget.isExpanded,
           child: Padding(
@@ -360,88 +367,96 @@ class MdEditorState extends State<MdEditor> with AutomaticKeepAliveClientMixin {
             ),
           ),
         ),
-        if (widget.showToolBar)
-          Container(
-            height: 40.0,
-            width: MediaQuery.of(context).size.width,
-            child: Ink(
-              decoration: BoxDecoration(
-                color: theme.scaffoldBackgroundColor,
-                boxShadow: [
-                  BoxShadow(color: theme.scaffoldBackgroundColor),
-                ],
-              ),
-              child: FutureBuilder(
-                future: _pres == null ? _initSharedPreferences() : null,
-                builder: (con, snap) {
-                  final _imageActionWidgets = <ActionImage>[
-                    ..._getImageActionWidgets().map((sort) => sort.widget)
-                  ];
+        if (widget.showToolBar &&
+            widget.toolBarPosition == MdEditorToolBarPosition.bottom)
+          _toolbar()
+      ],
+    );
+  }
 
-                  final _textFormatActionWidgets = <ActionImage>[
-                    ..._getTextFormatActionWidgets().map((sort) => sort.widget)
-                  ];
-                  final _listActionWidgets = <ActionImage>[
-                    ..._getListActionWidgets().map((sort) => sort.widget)
-                  ];
-                  final _previewActionWidgets = <ActionImage>[
-                    ActionImage(
-                        type: ActionType.preview,
-                        color: widget.actionIconColor,
-                        tap: (ActionType type, String prefix, String suffix,
-                            int positionReverse,
-                            [int? cursorPosition]) {
-                          //   Open preview page
-                          if (widget.onPreviewClicked != null) {
-                            widget.onPreviewClicked!();
-                          }
-                        })
-                  ];
-                  final _redoUndoActionWidgets = <ActionImage>[
-                    ActionImage(
-                      type: ActionType.undo,
-                      color: widget.actionIconColor,
-                      tap: (t, p, s, i, [cp]) {
-                        _editPerform.undo();
-                      },
-                    ),
-                    ActionImage(
-                      type: ActionType.redo,
-                      color: widget.actionIconColor,
-                      tap: (t, p, s, i, [cp]) {
-                        _editPerform.redo();
-                      },
-                    )
-                  ];
+  Widget _toolbar() {
+    ThemeData theme = Theme.of(context);
+    final bool isDark = theme.brightness == Brightness.dark;
 
-                  final _divider = VerticalDivider(
-                      width: 4,
-                      indent: 8,
-                      endIndent: 8,
-                      color: widget.dividerColor ?? theme.dividerColor,
-                      thickness: 1);
-                  return SingleChildScrollView(
-                    padding: widget.toolbarPadding,
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        ..._imageActionWidgets.map((e) => e).toList(),
-                        _divider,
-                        ..._textFormatActionWidgets.map((e) => e).toList(),
-                        _divider,
-                        ..._listActionWidgets.map((e) => e).toList(),
-                        _divider,
-                        ..._previewActionWidgets.map((e) => e).toList(),
-                        // _divider,
-                        // ..._redoUndoActionWidgets.map((e) => e).toList()
-                      ],
-                    ),
-                  );
+    return Container(
+      height: 40.0,
+      width: MediaQuery.of(context).size.width,
+      child: Ink(
+        decoration: BoxDecoration(
+          color: theme.scaffoldBackgroundColor,
+          boxShadow: [
+            BoxShadow(color: theme.scaffoldBackgroundColor),
+          ],
+        ),
+        child: FutureBuilder(
+          future: _pres == null ? _initSharedPreferences() : null,
+          builder: (con, snap) {
+            final _imageActionWidgets = <ActionImage>[
+              ..._getImageActionWidgets().map((sort) => sort.widget)
+            ];
+
+            final _textFormatActionWidgets = <ActionImage>[
+              ..._getTextFormatActionWidgets().map((sort) => sort.widget)
+            ];
+            final _listActionWidgets = <ActionImage>[
+              ..._getListActionWidgets().map((sort) => sort.widget)
+            ];
+            final _previewActionWidgets = <ActionImage>[
+              ActionImage(
+                  type: ActionType.preview,
+                  color: widget.actionIconColor,
+                  tap: (ActionType type, String prefix, String suffix,
+                      int positionReverse,
+                      [int? cursorPosition]) {
+                    //   Open preview page
+                    if (widget.onPreviewClicked != null) {
+                      widget.onPreviewClicked!();
+                    }
+                  })
+            ];
+            final _redoUndoActionWidgets = <ActionImage>[
+              ActionImage(
+                type: ActionType.undo,
+                color: widget.actionIconColor,
+                tap: (t, p, s, i, [cp]) {
+                  _editPerform.undo();
                 },
               ),
-            ),
-          ),
-      ],
+              ActionImage(
+                type: ActionType.redo,
+                color: widget.actionIconColor,
+                tap: (t, p, s, i, [cp]) {
+                  _editPerform.redo();
+                },
+              )
+            ];
+
+            final _divider = VerticalDivider(
+                width: 4,
+                indent: 8,
+                endIndent: 8,
+                color: widget.dividerColor ?? theme.dividerColor,
+                thickness: 1);
+            return SingleChildScrollView(
+              padding: widget.toolbarPadding,
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  ..._imageActionWidgets.map((e) => e).toList(),
+                  _divider,
+                  ..._textFormatActionWidgets.map((e) => e).toList(),
+                  _divider,
+                  ..._listActionWidgets.map((e) => e).toList(),
+                  _divider,
+                  ..._previewActionWidgets.map((e) => e).toList(),
+                  // _divider,
+                  // ..._redoUndoActionWidgets.map((e) => e).toList()
+                ],
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 

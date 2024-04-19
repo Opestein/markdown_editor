@@ -41,7 +41,8 @@ class MarkdownEditor extends StatefulWidget {
       this.previewImageWidget,
       this.maxLines = 1,
       this.minLines,
-      this.onViewChange})
+      this.onViewChange,
+      this.toolBarPosition = MdEditorToolBarPosition.bottom})
       : super(key: key);
 
   final bool isEditorExpanded, isPreviewExpanded;
@@ -88,6 +89,8 @@ class MarkdownEditor extends StatefulWidget {
 
   final Widget Function(String content)? previewWidget;
   final Function(PageType pageType)? onViewChange;
+
+  final MdEditorToolBarPosition toolBarPosition;
 
   @override
   State<StatefulWidget> createState() => MarkdownEditorWidgetState();
@@ -202,6 +205,7 @@ class MarkdownEditorWidgetState extends State<MarkdownEditor>
             onPreviewClicked: switchView,
             switchViewAndRequestFocus: switchViewAndRequestFocus,
             dividerColor: widget.dividerColor,
+            toolBarPosition: widget.toolBarPosition,
           );
   }
 }
