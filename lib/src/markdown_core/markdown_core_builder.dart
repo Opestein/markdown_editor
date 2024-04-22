@@ -34,7 +34,7 @@ class MarkdownBuilder implements md.NodeVisitor {
   @override
   bool visitElementBefore(md.Element element) {
     _level++;
-    debugPrint('visitElementBefore $_level ${element.textContent}');
+    // debugPrint('visitElementBefore $_level ${element.textContent}');
 
     String lastTag = '';
     if (_elementList.isNotEmpty) {
@@ -58,7 +58,7 @@ class MarkdownBuilder implements md.NodeVisitor {
 
   @override
   void visitText(md.Text text) {
-    debugPrint('text ${text.text}');
+    // debugPrint('text ${text.text}');
 
     if (_elementList.isEmpty) return;
     var last = _elementList.last;
@@ -74,7 +74,7 @@ class MarkdownBuilder implements md.NodeVisitor {
         style: last.textStyle,
         recognizer: TapGestureRecognizer()
           ..onTap = () {
-            debugPrint(last.attributes.toString());
+            // debugPrint(last.attributes.toString());
             linkTap(last.attributes['href'] ?? '');
           },
       ));
@@ -91,7 +91,7 @@ class MarkdownBuilder implements md.NodeVisitor {
 
   @override
   void visitElementAfter(md.Element element) {
-    debugPrint('visitElementAfter $_level ${element.tag}');
+    // debugPrint('visitElementAfter $_level ${element.tag}');
     _level--;
 
     if (_elementList.isEmpty) return;
@@ -136,7 +136,7 @@ class MarkdownBuilder implements md.NodeVisitor {
         );
         _elementList.last.textSpans = null;
       }
-      debugPrint(element.attributes.toString());
+      // debugPrint(element.attributes.toString());
       //_elementList.clear();
       _widgets.add(
         Padding(

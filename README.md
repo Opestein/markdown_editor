@@ -7,7 +7,7 @@ MarkdownEditor(
       initText: 'initText',
       initTitle: 'initText',
       onTapLink: (link){
-        print('link tapped $link');
+        debugPrint('link tapped $link');
       },
       imageWidget: (imageUrl) {
         return // Your image widget ;

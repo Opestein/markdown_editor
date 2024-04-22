@@ -124,7 +124,7 @@ class MarkdownTextFieldController extends TextEditingController {
     String highlightedText =
         currentText.substring(selection.start, selection.end);
 
-    print('value: ${value.text}');
+    // debugPrint('value: ${value.text}');
     bool isHighlightedText = selection.start != selection.end;
 
     // Gets the index of the first part of the prefix.

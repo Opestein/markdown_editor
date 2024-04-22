@@ -120,7 +120,7 @@ class MdEditorState extends State<MdEditor> with AutomaticKeepAliveClientMixin {
     String highlightedText =
         currentText.substring(selection.start, selection.end);
 
-    print('value: ${value.text}');
+    // debugPrint('value: ${value.text}');
     bool isHighlightedText = selection.start != selection.end;
 
     // Gets the index of the first part of the prefix.
@@ -224,8 +224,8 @@ class MdEditorState extends State<MdEditor> with AutomaticKeepAliveClientMixin {
       // Get the text from the start to the cursor
       String editableText = currentText.substring(0, cursorIndexPreNewLine - 1);
       // Get the text from the previous line break to in editableText
-      print('cursorPosition: $cursorPosition');
-      print('editableText: ${editableText}');
+      // debugPrint('cursorPosition: $cursorPosition');
+      // debugPrint('editableText: ${editableText}');
 
       // If the last index of the editableText is greater than -1; this means there was a previous line break
       // else use the editableText as it is
@@ -258,12 +258,12 @@ class MdEditorState extends State<MdEditor> with AutomaticKeepAliveClientMixin {
 
       currentText = editableText + postEditableText;
 
-      // print('editableText: $editableText');
-      // print('postEditableText: $postEditableText');
-      // print('editableText lastIndexOf: ${editableText.lastIndexOf('\n')}');
-      // print(
+      // debugPrint('editableText: $editableText');
+      // debugPrint('postEditableText: $postEditableText');
+      // debugPrint('editableText lastIndexOf: ${editableText.lastIndexOf('\n')}');
+      // debugPrint(
       //     'editableText indexOf: ${editableText.indexOf(' ', editableText.lastIndexOf('\n'))}');
-      // print(
+      // debugPrint(
       //     'postEditableText lastIndexOf: ${postEditableText.lastIndexOf('\n')}');
       oldValue = currentText;
       return TextEditingValue(
@@ -347,7 +347,7 @@ class MdEditorState extends State<MdEditor> with AutomaticKeepAliveClientMixin {
                       final _tempKey = '$preferenceKey';
                       _pres?.setInt(
                           _tempKey, (_pres?.getInt(_tempKey) ?? 0) + 1);
-                      debugPrint('$_tempKey   ${_pres?.getInt(_tempKey)}');
+                      // debugPrint('$_tempKey   ${_pres?.getInt(_tempKey)}');
 
                       _editPerform
                           .change(textFieldModel.textEditingController.text);

@@ -76,7 +76,7 @@ class MdPreviewState extends State<MdPreview>
                         widget.textFieldModel.textEditingController.text ?? '',
                     maxWidth: constraints.maxWidth,
                     linkTap: (link) {
-                      debugPrint(link);
+                      // debugPrint(link);
                       if (widget.onTapLink != null) {
                         widget.onTapLink!(link);
                       }
