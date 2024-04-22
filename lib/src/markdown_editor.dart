@@ -67,7 +67,7 @@ class MarkdownEditor extends StatefulWidget {
   // final TabChange? tabChange;
 
   /// When title or text changed
-  final VoidCallback? textChange;
+  final Function(String text)? textChange;
 
   /// Change icon color, eg: color of font_bold icon.
   final Color? actionIconColor;

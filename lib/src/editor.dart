@@ -55,7 +55,7 @@ class MdEditor extends StatefulWidget {
   /// see [ImageSelectCallback]
   final ImageSelectCallback? imageSelect;
 
-  final VoidCallback? textChange;
+  final Function(String text)? textChange;
 
   final VoidCallback? onPreviewClicked, switchViewAndRequestFocus;
 
@@ -338,7 +338,7 @@ class MdEditorState extends State<MdEditor> with AutomaticKeepAliveClientMixin {
                         ),
                     // onChanged: (text) {
                     //   _editPerform.change(text);
-                    //   if (widget.textChange != null) widget.textChange!();
+                    //
                     // },
                     onChanged: (value) {
                       textFieldModel.updateField(onNewLineOnTextChangedListener(
@@ -351,6 +351,7 @@ class MdEditorState extends State<MdEditor> with AutomaticKeepAliveClientMixin {
 
                       _editPerform
                           .change(textFieldModel.textEditingController.text);
+                      if (widget.textChange != null) widget.textChange!(textFieldModel.textEditingController.text);
                     },
                     decoration: InputDecoration(
                       contentPadding: widget.editorContentPadding,
